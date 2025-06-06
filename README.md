@@ -16,6 +16,7 @@ This project is a responsive and accessible React application designed to allow 
 ```
 /src
   /components
+    Header.jsx               // Pages Header
     SkipCard.jsx         // Individual skip card UI
     SkipSelector.jsx     // Grid layout for multiple cards
   /hooks
