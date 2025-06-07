@@ -61,12 +61,17 @@ This project is a responsive and accessible React application that allows users 
 
 ## Installation & Running Locally
 
-```bash
-git clone <repo-url>
-cd skip-selector-ui
+# Clone the repository
+git clone https://github.com/gadishiimwe/remwaste-skip-selector-ui.git
+
+# Navigate into the project folder
+cd remwaste-skip-selector-ui
+
+# Install dependencies
 npm install
+
+# Run the development server
 npm run dev
-```
 
 ## Conclusion
 
