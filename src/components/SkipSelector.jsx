@@ -1,144 +1,71 @@
 import React, { useState } from "react";
 import SkipCard from "./SkipCard";
-import { X } from "lucide-react";
 
-const SkipSelector = ({ skips, showPrompt }) => {
+const SkipSelector = ({ skips }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [compareMode, setCompareMode] = useState(false);
-  const [comparisonSkips, setComparisonSkips] = useState([]);
   const total = skips.length;
 
+  // Helper to get the correct yard size property
+  const getYard = (skip) => skip.yard_size || skip.yards || skip.size || skip.name?.match(/\d+/)?.[0] || "";
+
   const handleSelect = (index) => {
-    if (compareMode) {
-      setComparisonSkips(prev => {
-        if (prev.includes(index)) {
-          return prev.filter(i => i !== index);
-        }
-        if (prev.length < 2) {
-          return [...prev, index];
-        }
-        return prev;
-      });
-    } else {
-      setSelectedIndex(prev => (prev === index ? null : index));
-      if (showPrompt) {
-        const skip = skips[index];
-        showPrompt(
-          `You have selected the ${[4, 6, 8, 10, 12, 14, 16, 20, 40][index % 9]} Yard Skip for $${skip.price_before_vat} (${skip.hire_period_days} day hire)`,
-          "Continue",
-          () => showPrompt("Proceeding to checkout...", "", null)
-        );
-      }
-    }
+    setSelectedIndex(prev => (prev === index ? null : index));
   };
 
-  const handleContinue = () => {
-    if (selectedIndex !== null && showPrompt) {
-      const skip = skips[selectedIndex];
-      showPrompt(
-        `Proceeding with the ${[4, 6, 8, 10, 12, 14, 16, 20, 40][selectedIndex % 9]} Yard Skip for $${skip.price_before_vat}.`,
-        "",
-        null
-      );
-    }
-  };
-
-  const toggleCompareMode = () => {
-    setCompareMode(prev => !prev);
-    setComparisonSkips([]);
+  const handleBack = () => {
     setSelectedIndex(null);
   };
 
-  const isSelected = (index) => {
-    return compareMode ? comparisonSkips.includes(index) : selectedIndex === index;
+  const handleContinue = () => {
+    // Implement your continue logic here
+    // For now, just alert
+    alert("Proceeding to checkout...");
   };
+
+  const selectedSkip = selectedIndex !== null ? skips[selectedIndex] : null;
+  const yard = selectedSkip ? getYard(selectedSkip) : "";
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-300">
-          {compareMode ? "Compare Skip Sizes" : "Available Skip Sizes"}
-        </h2>
-        <button
-          onClick={toggleCompareMode}
-          className={`px-4 py-2 rounded-lg transition-colors ${
-            compareMode
-              ? "bg-blue-600 hover:bg-blue-700"
-              : "bg-gray-800 hover:bg-gray-700"
-          }`}
-        >
-          {compareMode ? "Exit Compare Mode" : "Compare Skips"}
-        </button>
-      </div>
-
-      {compareMode && comparisonSkips.length > 0 && (
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 flex items-center justify-between">
-          <p className="text-sm text-gray-300">
-            {comparisonSkips.length}/2 skips selected for comparison
-          </p>
-          <button
-            onClick={() => setComparisonSkips([])}
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
         {skips.map((skip, index) => (
-          <SkipCard
-            key={skip.id}
-            skip={{ ...skip, total }}
-            index={index}
-            isSelected={isSelected(index)}
-            onSelect={() => handleSelect(index)}
-          />
+          <div key={skip.id} className="w-full max-w-[480px] mx-auto">
+            <SkipCard
+              skip={{ ...skip, total, yard_size: getYard(skip) }}
+              index={index}
+              isSelected={selectedIndex === index}
+              onSelect={() => handleSelect(index)}
+              zoomed
+            />
+          </div>
         ))}
       </div>
-
-      {!compareMode && (
-        <div className="flex justify-end gap-4 mt-8">
-          <button
-            className="px-6 py-3 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition"
-            onClick={() => showPrompt && showPrompt("Going back...")}
-          >
-            Back
-          </button>
-          <button
-            className={`px-6 py-3 rounded-lg font-semibold transition text-white ${
-              selectedIndex !== null
-                ? "bg-blue-600 hover:bg-blue-700"
-                : "bg-gray-700 cursor-not-allowed"
-            }`}
-            disabled={selectedIndex === null}
-            onClick={handleContinue}
-          >
-            Continue
-          </button>
-        </div>
-      )}
-
-      {compareMode && comparisonSkips.length === 2 && (
-        <div className="mt-8 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl">
-          <h3 className="text-xl font-semibold mb-4">Comparison Summary</h3>
-          <div className="grid grid-cols-2 gap-6">
-            {comparisonSkips.map((index) => {
-              const skip = skips[index];
-              const yard = [4, 6, 8, 10, 12, 14, 16, 20, 40][index % 9];
-              return (
-                <div key={index} className="space-y-2">
-                  <h4 className="text-lg font-medium">{yard} Yard Skip</h4>
-                  <p className="text-sm text-gray-400">
-                    Price: ${skip.price_before_vat} + VAT
-                  </p>
-                  <p className="text-sm text-gray-400">
-                    Hire Period: {skip.hire_period_days} days
-                  </p>
-                  <p className="text-sm text-gray-300">{skip.description}</p>
-                </div>
-              );
-            })}
+      {/* Sticky full-width bottom bar for selected skip */}
+      {selectedSkip && (
+        <div className="fixed bottom-0 left-0 w-full z-50 animate-fade-in">
+          <div className="w-full bg-gray-900/95 border-t border-gray-700 shadow-xl px-0 py-0">
+            <div className="text-xs text-gray-400 text-center px-4 pt-3 pb-1">
+              Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
+            </div>
+            <div className="flex items-center gap-4 max-w-4xl w-full mx-auto px-6 py-4">
+              <div className="flex-1 flex flex-col sm:flex-row sm:items-center gap-2">
+                <span className="font-medium text-white text-xl">{yard} Yard Skip</span>
+                <span className="text-blue-400 text-2xl font-medium">£{selectedSkip.price_before_vat}</span>
+                <span className="text-gray-300 text-lg font-medium">{selectedSkip.hire_period_days} day hire</span>
+              </div>
+              <button
+                className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+                onClick={handleBack}
+              >
+                Back
+              </button>
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition"
+                onClick={handleContinue}
+              >
+                Continue
+              </button>
+            </div>
           </div>
         </div>
       )}

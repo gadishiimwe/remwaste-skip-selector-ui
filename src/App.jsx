@@ -3,6 +3,7 @@ import SkipSelector from "./components/SkipSelector";
 import useFetchSkips from "./hooks/useFetchSkips";
 import BottomPrompt from "./components/BottomPrompt";
 import Header from "./components/Header";
+import ProgressBar from "./components/ProgressBar";
 
 const App = () => {
   const { skips, loading } = useFetchSkips();
@@ -15,9 +16,10 @@ const App = () => {
   const closePrompt = () => setPrompt({ message: "", actionLabel: "", onAction: null });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <div className="min-h-screen bg-[#181A20] text-white font-sans">
+      <ProgressBar currentStep={2} />
       <Header />
-      <main className="p-4 max-w-7xl mx-auto">
+      <main className="max-w-5xl mx-auto px-4 py-8">
         {loading ? (
           <div className="flex items-center justify-center min-h-[60vh]">
             <div className="text-center">
@@ -29,9 +31,6 @@ const App = () => {
           <SkipSelector skips={skips} showPrompt={showPrompt} />
         )}
       </main>
-      <footer className="mt-12 py-6 text-center text-sm text-gray-500 border-t border-gray-800">
-        <p>© 2024 Skip Selector. All rights reserved.</p>
-      </footer>
       <BottomPrompt
         message={prompt.message}
         onClose={closePrompt}
