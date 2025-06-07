@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import SkipSelector from "./components/SkipSelector";
 import useFetchSkips from "./hooks/useFetchSkips";
-import BottomPrompt from "./components/BottomPrompt";
 import Header from "./components/Header";
 import ProgressBar from "./components/ProgressBar";
 
 const App = () => {
   const { skips, loading } = useFetchSkips();
-  const [prompt, setPrompt] = useState({ message: "", actionLabel: "", onAction: null });
-
-  const showPrompt = (message, actionLabel = "", onAction = null) => {
-    setPrompt({ message, actionLabel, onAction });
-  };
-
-  const closePrompt = () => setPrompt({ message: "", actionLabel: "", onAction: null });
 
   return (
     <div className="min-h-screen bg-[#181A20] text-white font-sans">
@@ -28,15 +20,9 @@ const App = () => {
             </div>
           </div>
         ) : (
-          <SkipSelector skips={skips} showPrompt={showPrompt} />
+          <SkipSelector skips={skips} />
         )}
       </main>
-      <BottomPrompt
-        message={prompt.message}
-        onClose={closePrompt}
-        actionLabel={prompt.actionLabel}
-        onAction={prompt.onAction}
-      />
     </div>
   );
 };
