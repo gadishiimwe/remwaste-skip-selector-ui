@@ -51,6 +51,27 @@ This project is a responsive and accessible React application that allows users 
 
 5. **Styling**: Tailwind CSS is used throughout the app to maintain a modern and clean look, with hover effects, responsive layouts, and custom animations.
 
+## Installation & Running Locally
+
+```bash
+git clone https://github.com/gadishiimwe/remwaste-skip-selector-ui.git
+cd skip-selector-ui
+npm install
+npm run dev
+```
+
+## Dependencies
+
+- **React** (`react`, `react-dom`): UI library
+- **Tailwind CSS** (`tailwindcss`, `@tailwindcss/vite`): Utility-first CSS framework
+- **Lucide React** (`lucide-react`): Icon library
+- **Axios** (`axios`): For API requests
+- **Vite** (`vite`, `@vitejs/plugin-react`): Development server and build tool
+- **ESLint** (`eslint`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `@eslint/js`, `globals`): Linting and code quality
+- **TypeScript types** (`@types/react`, `@types/react-dom`): Type support (optional, for TypeScript users)
+
+All dependencies are installed automatically with `npm install`.
+
 ## Future Enhancements
 
 * Allow users to view a running total price and checkout flow
@@ -58,20 +79,6 @@ This project is a responsive and accessible React application that allows users 
 * Improve accessibility (e.g., keyboard navigation, ARIA roles)
 * Unit testing with Jest and component testing with React Testing Library
 * Add user authentication and persistent selection
-
-## Installation & Running Locally
-
-# Clone the repository
-git clone https://github.com/gadishiimwe/remwaste-skip-selector-ui.git
-
-# Navigate into the project folder
-cd remwaste-skip-selector-ui
-
-# Install dependencies
-npm install
-
-# Run the development server
-npm run dev
 
 ## Conclusion
 
