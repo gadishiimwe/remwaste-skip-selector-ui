@@ -1,9 +1,18 @@
+<<<<<<< HEAD
+=======
+@import "tailwindcss";
+
+>>>>>>> a731120ab112c728e8c935e9f2daa2fe420fc96f
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
+<<<<<<< HEAD
+=======
+  background: #181A20;
+>>>>>>> a731120ab112c728e8c935e9f2daa2fe420fc96f
   color: #fff;
 }
 
@@ -52,7 +61,11 @@ body {
   }
 }
 
+<<<<<<< HEAD
 /* Enhanced scrollbar styling */
+=======
+/* Custom scrollbar */
+>>>>>>> a731120ab112c728e8c935e9f2daa2fe420fc96f
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -64,10 +77,18 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background: rgba(99, 102, 241, 0.5);
+=======
+  background: rgba(59, 130, 246, 0.5);
+>>>>>>> a731120ab112c728e8c935e9f2daa2fe420fc96f
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+<<<<<<< HEAD
   background: rgba(99, 102, 241, 0.7);
+=======
+  background: rgba(59, 130, 246, 0.7);
+>>>>>>> a731120ab112c728e8c935e9f2daa2fe420fc96f
 }
