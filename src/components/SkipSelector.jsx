@@ -6,7 +6,7 @@ const SkipSelector = ({ skips }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const total = skips.length;
 
-  // Helper to get the correct yard size property
+  // Extract yard size from skip data, handling different property names
   const getYard = (skip) => skip.yard_size || skip.yards || skip.size || skip.name?.match(/\d+/)?.[0] || "";
 
   const handleSelect = (index) => {
@@ -18,8 +18,7 @@ const SkipSelector = ({ skips }) => {
   };
 
   const handleContinue = () => {
-    // Implement your continue logic here
-    // For now, just alert
+    // TODO: Implement checkout flow
     alert("Proceeding to checkout...");
   };
 
@@ -42,7 +41,7 @@ const SkipSelector = ({ skips }) => {
         ))}
       </div>
 
-      {/* Sticky bottom bar for selected skip */}
+      {/* Selection summary and actions */}
       {selectedSkip && (
         <div className="fixed bottom-0 left-0 w-full z-50 animate-fade-in">
           <div className="w-full bg-gray-900/95 backdrop-blur-md border-t border-gray-700/50 shadow-2xl">

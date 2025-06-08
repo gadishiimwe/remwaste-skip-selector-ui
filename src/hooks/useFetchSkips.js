@@ -6,19 +6,20 @@ const useFetchSkips = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  fetch("https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Fetched skips:", data); // See full structure
-      setSkips(data);
-      setLoading(false);
-    })
-    .catch((error) => {
-      console.error("Error fetching skips:", error);
-      setLoading(false);
-    });
-}, []);
+    const fetchSkips = async () => {
+      try {
+        const response = await fetch("https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft");
+        const data = await response.json();
+        setSkips(data);
+      } catch (error) {
+        console.error("Error fetching skips:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchSkips();
+  }, []);
 
   return { skips, loading };
 };
