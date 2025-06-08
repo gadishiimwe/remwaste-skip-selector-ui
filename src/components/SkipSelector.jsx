@@ -28,15 +28,6 @@ const SkipSelector = ({ skips }) => {
 
   return (
     <div className="space-y-8">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-          Choose Your Skip Size
-        </h1>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          Select the perfect skip size for your project. All skips come with a standard hire period and include delivery and collection.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
         {skips.map((skip, index) => (
           <div key={skip.id} className="w-full max-w-[480px] mx-auto transform transition-all duration-300 hover:scale-[1.02]">
