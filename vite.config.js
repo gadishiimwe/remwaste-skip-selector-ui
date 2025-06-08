@@ -9,5 +9,12 @@ export default defineConfig({
     rollupOptions: {
       external: ['@rollup/rollup-linux-x64-gnu']
     }
+  },
+  server: {
+    host: true,
+    allowedHosts: [
+      'yj92t5-5174.csb.app',
+      '.csb.app'  // This will allow all CodeSandbox subdomains
+    ]
   }
 })
